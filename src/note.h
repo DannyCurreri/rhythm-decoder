@@ -8,6 +8,7 @@ public:
 
     Note(NoteType, bool);
     int duration() const;
+    bool is_dotted() const { return dotted; }
 private:
     NoteType type;
     bool dotted;

@@ -78,3 +78,80 @@ TEST_CASE("Append invalid bar")
     RhythmicPiece rp2(orff_signature(4,4));
     REQUIRE_THROWS( rp2.append( too_small ) );
 }
+
+TEST_CASE("Calculate correct key value for a compound meter")
+{
+    RhythmicPiece rp(orff_signature(12,8));
+
+    SECTION( "key is eighth note" )
+    {
+        RhythmicPiece::Bar bar = {
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::eigth, false),
+            Note(Note::NoteType::eigth, false),
+            Note(Note::NoteType::eigth, false),
+            Note(Note::NoteType::quarter, true)
+        };
+        rp.append(bar);
+        Note correct_key(Note::NoteType::eigth, false);
+        REQUIRE( rp.key() == correct_key.duration() );
+    }
+
+    SECTION( "contains undotted quarter notes" )
+    {
+        RhythmicPiece::Bar bar = {
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::quarter, false),
+            Note(Note::NoteType::quarter, false),
+            Note(Note::NoteType::quarter, false),
+            Note(Note::NoteType::quarter, true)
+        };
+        rp.append(bar);
+        Note correct_key(Note::NoteType::eigth, false);
+        REQUIRE( rp.key() == correct_key.duration() );
+    }
+    SECTION( "key is equal to beat" )
+    {
+        RhythmicPiece::Bar bar = {
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::quarter, true)
+        };
+        rp.append(bar);
+        Note correct_key(Note::NoteType::quarter, true);
+        REQUIRE( rp.key() == correct_key.duration() );
+    }
+}
+
+TEST_CASE("Calculate correct key value for a simple meter")
+{
+    RhythmicPiece rp(orff_signature(4,4));
+
+    SECTION( "handles dotted quarter notes" )
+    {
+        RhythmicPiece::Bar bar = {
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::quarter, true),
+            Note(Note::NoteType::quarter, false)
+        };
+        rp.append(bar);
+        Note correct_key(Note::NoteType::eigth, false);
+        REQUIRE( rp.key() == correct_key.duration() );
+    }
+
+    SECTION( "handles dotted eighth notes" )
+    {
+        RhythmicPiece::Bar bar = {
+            Note(Note::NoteType::eigth, true),
+            Note(Note::NoteType::eigth, true),
+            Note(Note::NoteType::quarter, false),
+            Note(Note::NoteType::eigth, true),
+            Note(Note::NoteType::eigth, true),
+        };
+        rp.append(bar);
+        Note correct_key(Note::NoteType::sixteenth, false);
+        REQUIRE( rp.key() == correct_key.duration() );
+    }
+}
