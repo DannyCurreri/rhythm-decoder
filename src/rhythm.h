@@ -22,6 +22,9 @@ private:
     Note beat;            // note value of primary beat in time sig
     int beats_per_measure;
     std::vector<Bar> bars;
+
+    int simple_key() const;
+    int compound_key() const;
 };
 
 #endif

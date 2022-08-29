@@ -13,7 +13,7 @@ std::pair<int, Note> orff_signature(int top, int bottom)
         switch (bottom) {
             case 2: note_type = Note::NoteType::half;    break;
             case 4: note_type = Note::NoteType::quarter; break;
-            case 8: note_type = Note::NoteType::eigth;   break;
+            case 8: note_type = Note::NoteType::eighth;   break;
             default:
                 throw(std::range_error("Unsupported time signature"));
         }
@@ -47,18 +47,54 @@ void RhythmicPiece::append(Bar bar)
 
 int RhythmicPiece::key() const
 {
+    if (is_compound()) return compound_key();
+    return simple_key();
+}
+
+int RhythmicPiece::compound_key() const
+{
     int beat_dur = beat.duration();
     int res = beat_dur;
     for (const auto& bar: bars) {
     for (const auto& note: bar) {
         int dur = note.duration();
-        if (dur < beat_dur) {
-            if (beat_dur % dur == 0)
-                res = dur;
+        if (dur < res) {
+            if (beat_dur % dur == 0) {
+                // for dotted eighth notes in a compound meter, the
+                // duration evenly divides the beat but this should *not*
+                // be the key note.
+                // this is an unideal solution.
+                if (note.is_dotted())
+                    res = dur / 3;
+                else
+                    res = dur;
+            }
             else
-                res = is_compound() ? dur / 2 : dur / 3;
-        } else if (dur > beat_dur && dur % beat_dur != 0)
-            res = is_compound() ? dur / 2 : dur / 3;
+                res = dur / 2;
+        } else if (dur > beat_dur && dur % beat_dur != 0) {
+            res = (dur / 2 < res) ? dur / 2 : res;
+        }
+    }}
+    return res;
+}
+
+int RhythmicPiece::simple_key() const
+{
+    int beat_dur = beat.duration();
+    int res = beat_dur;
+    for (const auto& bar: bars) {
+    for (const auto& note: bar) {
+        int dur = note.duration();
+        if (dur < res) {
+            if (beat_dur % dur == 0) {
+                res = dur;
+            }
+            else
+                res = dur / 3;
+        } else if (dur > beat_dur && dur % beat_dur != 0) {
+            res = (dur / 3 < res) ? dur / 3 : res;
+
+        }
     }}
     return res;
 }

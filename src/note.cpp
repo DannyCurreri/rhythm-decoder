@@ -15,7 +15,7 @@ int Note::duration() const
         case NoteType::whole:      res *= 32;  break;
         case NoteType::half:       res *= 16;  break;
         case NoteType::quarter:    res *=  8;  break;
-        case NoteType::eigth:      res *=  4;  break;
+        case NoteType::eighth:     res *=  4;  break;
         case NoteType::sixteenth:  res *=  2;  break;
     }
     if (dotted) {

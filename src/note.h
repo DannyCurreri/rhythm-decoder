@@ -4,7 +4,7 @@
 class Note {
 public:
     enum class NoteType {
-        whole, half, quarter, eigth, sixteenth, thirty_second };
+        whole, half, quarter, eighth, sixteenth, thirty_second };
 
     Note(NoteType, bool);
     int duration() const;
