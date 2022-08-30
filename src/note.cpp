@@ -6,7 +6,20 @@
    dotted notes and any desired tuplets, can be expressed as integers. */
 constexpr int BASE_DURATION = 6;
 
-Note::Note(NoteType n, bool d) :type{n}, dotted{d} {}
+Note::Note(NoteType n) :type{n}
+{
+    dotted_ = false;
+    rest_ = false;
+}
+
+Note::Note(NoteType n, bool d) :type{n}, dotted_{d}
+{
+    rest_ = false;
+}
+
+Note::Note(NoteType n, bool d, bool r)
+    :type{n}, dotted_{d}, rest_{r}
+{}
 
 int Note::duration() const
 {
@@ -18,7 +31,7 @@ int Note::duration() const
         case NoteType::eighth:     res *=  4;  break;
         case NoteType::sixteenth:  res *=  2;  break;
     }
-    if (dotted) {
+    if (dotted_) {
         res /= 2;
         res *= 3;
     }

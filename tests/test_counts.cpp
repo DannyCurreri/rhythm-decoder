@@ -3,7 +3,7 @@
 #include "rhythm.h"
 #include <catch2/catch_test_macros.hpp>
 
-TEST_CASE("4/4 time signature")
+TEST_CASE("count in 4/4")
 {
     RhythmicPiece rp(orff_signature(4,4));
 
@@ -18,8 +18,13 @@ TEST_CASE("4/4 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::four );
+        REQUIRE( rp.counts()[0].second == 1 );
+        REQUIRE( rp.counts()[1].second == 3 );
+        REQUIRE( rp.counts()[2].second == 1 );
+        REQUIRE( rp.counts()[3].second == 3 );
+        REQUIRE( rp.counts()[4].second == 6 );
+        REQUIRE( rp.counts()[5].second == 2 );
     }
 
     SECTION( "quarter notes" )
@@ -31,8 +36,9 @@ TEST_CASE("4/4 time signature")
             Note(Note::NoteType::quarter, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::quarter, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::one );
+        for (const auto& count: rp.counts())
+            REQUIRE ( count.second == 1 );
     }
 
     SECTION( "eighth notes" )
@@ -48,8 +54,9 @@ TEST_CASE("4/4 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::two );
+        for (const auto& count: rp.counts())
+            REQUIRE ( count.second == 1 );
     }
 
     SECTION( "dotted quarter notes" )
@@ -60,12 +67,14 @@ TEST_CASE("4/4 time signature")
             Note(Note::NoteType::quarter, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::two );
+        REQUIRE( rp.counts()[0].second == 3 );
+        REQUIRE( rp.counts()[1].second == 3 );
+        REQUIRE( rp.counts()[2].second == 2 );
     }
 }
 
-TEST_CASE( "3/4 time signature" )
+TEST_CASE( "count in 3/4" )
 {
     RhythmicPiece rp(orff_signature(3,4));
 
@@ -83,12 +92,13 @@ TEST_CASE( "3/4 time signature" )
             Note(Note::NoteType::sixteenth, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::four );
+        REQUIRE( rp.counts()[0].second == 1 );
+        REQUIRE( rp.counts()[4].second == 2 );
     }
 }
 
-TEST_CASE( "2/2 time signature" )
+TEST_CASE( "count in 2/2 time signature" )
 {
     RhythmicPiece rp(orff_signature(2,2));
 
@@ -99,8 +109,9 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::half, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::half, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::one );
+        REQUIRE( rp.counts()[0].second == 1 );
+
     }
 
     SECTION( "quarter notes" )
@@ -112,8 +123,8 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::quarter, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::quarter, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::two );
+        REQUIRE( rp.counts()[0].second == 1 );
     }
 
     SECTION( "dotted quarter notes" )
@@ -125,8 +136,9 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::quarter, true),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::four );
+        REQUIRE( rp.counts()[0].second == 3 );
+        REQUIRE( rp.counts()[1].second == 1 );
     }
 
     SECTION( "eighth notes" )
@@ -142,12 +154,14 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::four );
+        for (const auto& count: rp.counts()) {
+            REQUIRE( count.second == 1 );
+        }
     }
 }
 
-TEST_CASE("6/8 time signature")
+TEST_CASE("count in 6/8 time signature")
 {
     RhythmicPiece rp(orff_signature(6,8));
 
@@ -166,8 +180,9 @@ TEST_CASE("6/8 time signature")
             Note(Note::NoteType::sixteenth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::six );
+        REQUIRE( rp.counts()[0].second == 3 );
+        REQUIRE( rp.counts()[1].second == 1 );
     }
 
     SECTION( "dotted eighth note" )
@@ -179,8 +194,8 @@ TEST_CASE("6/8 time signature")
             Note(Note::NoteType::eighth, true),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::six );
+        REQUIRE( rp.counts()[0].second == 3 );
     }
 
     SECTION( "quarter and eighth note" )
@@ -192,12 +207,13 @@ TEST_CASE("6/8 time signature")
             Note(Note::NoteType::quarter, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::three );
+        REQUIRE( rp.counts()[0].second == 2 );
+        REQUIRE( rp.counts()[1].second == 1 );
     }
 }
 
-TEST_CASE("12/8 time signature")
+TEST_CASE("count in 12/8 time signature")
 {
     RhythmicPiece rp(orff_signature(12,8));
 
@@ -214,8 +230,10 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::three );
+        REQUIRE( rp.counts()[0].second == 3 );
+        REQUIRE( rp.counts()[1].second == 3 );
+        REQUIRE( rp.counts()[2].second == 1 );
     }
 
     SECTION( "eighth notes" )
@@ -235,8 +253,10 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::three );
+        for (const auto& count: rp.counts()) {
+            REQUIRE( count.second == 1 );
+        }
     }
 
     SECTION( "undotted quarter notes" )
@@ -253,8 +273,9 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::three );
+        REQUIRE( rp.counts()[0].second == 2 );
+        REQUIRE( rp.counts()[1].second == 1 );
     }
 
     SECTION( "16th and dotted eighth notes" )
@@ -275,7 +296,9 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        REQUIRE( rp.count_system() == RhythmicPiece::CountSystem::six );
+        REQUIRE( rp.counts()[0].second == 2 );
+        REQUIRE( rp.counts()[1].second == 3 );
+        REQUIRE( rp.counts()[2].second == 1 );
     }
 }

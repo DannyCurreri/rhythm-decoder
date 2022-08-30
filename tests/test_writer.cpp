@@ -2,8 +2,12 @@
 #include "note.h"
 #include "rhythm.h"
 #include <catch2/catch_test_macros.hpp>
+#include <iostream>
 
-TEST_CASE("4/4 time signature")
+using std::cout;
+using std::endl;
+
+TEST_CASE("write piece in 4/4")
 {
     RhythmicPiece rp(orff_signature(4,4));
 
@@ -12,27 +16,25 @@ TEST_CASE("4/4 time signature")
         RhythmicPiece::Bar bar = {
             Note(Note::NoteType::sixteenth, false),
             Note(Note::NoteType::eighth, true),
-            Note(Note::NoteType::sixteenth, false),
+            Note(Note::NoteType::sixteenth, false, true),
             Note(Note::NoteType::eighth, true),
             Note(Note::NoteType::quarter, true),
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        cout << rp.write() << endl;
     }
 
     SECTION( "quarter notes" )
     {
         RhythmicPiece::Bar bar = {
             Note(Note::NoteType::quarter, false),
+            Note(Note::NoteType::quarter, false, true),
             Note(Note::NoteType::quarter, false),
-            Note(Note::NoteType::quarter, false),
-            Note(Note::NoteType::quarter, false),
+            Note(Note::NoteType::quarter, false, true),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::quarter, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        cout << rp.write() << endl;
     }
 
     SECTION( "eighth notes" )
@@ -48,8 +50,7 @@ TEST_CASE("4/4 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        cout << rp.write() << endl;
     }
 
     SECTION( "dotted quarter notes" )
@@ -60,12 +61,11 @@ TEST_CASE("4/4 time signature")
             Note(Note::NoteType::quarter, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
+        cout << rp.write() << endl;
     }
 }
 
-TEST_CASE( "3/4 time signature" )
+TEST_CASE( "write piece in 3/4" )
 {
     RhythmicPiece rp(orff_signature(3,4));
 
@@ -83,12 +83,10 @@ TEST_CASE( "3/4 time signature" )
             Note(Note::NoteType::sixteenth, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 }
 
-TEST_CASE( "2/2 time signature" )
+TEST_CASE( "write piece in 2/2 time signature" )
 {
     RhythmicPiece rp(orff_signature(2,2));
 
@@ -99,8 +97,6 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::half, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::half, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "quarter notes" )
@@ -112,8 +108,6 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::quarter, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::quarter, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "dotted quarter notes" )
@@ -125,8 +119,6 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::quarter, true),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "eighth notes" )
@@ -142,12 +134,10 @@ TEST_CASE( "2/2 time signature" )
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 }
 
-TEST_CASE("6/8 time signature")
+TEST_CASE("write piece in 6/8")
 {
     RhythmicPiece rp(orff_signature(6,8));
 
@@ -166,8 +156,6 @@ TEST_CASE("6/8 time signature")
             Note(Note::NoteType::sixteenth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "dotted eighth note" )
@@ -179,8 +167,6 @@ TEST_CASE("6/8 time signature")
             Note(Note::NoteType::eighth, true),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "quarter and eighth note" )
@@ -192,12 +178,10 @@ TEST_CASE("6/8 time signature")
             Note(Note::NoteType::quarter, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 }
 
-TEST_CASE("12/8 time signature")
+TEST_CASE("write piece in 12/8")
 {
     RhythmicPiece rp(orff_signature(12,8));
 
@@ -214,8 +198,6 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "eighth notes" )
@@ -235,8 +217,6 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "undotted quarter notes" )
@@ -253,8 +233,6 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false)
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::eighth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 
     SECTION( "16th and dotted eighth notes" )
@@ -275,7 +253,5 @@ TEST_CASE("12/8 time signature")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        Note correct_key(Note::NoteType::sixteenth, false);
-        REQUIRE( rp.key() == correct_key.duration() );
     }
 }

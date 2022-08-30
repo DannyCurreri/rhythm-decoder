@@ -45,6 +45,32 @@ void RhythmicPiece::append(Bar bar)
     bars.push_back(bar);
 }
 
+RhythmicPiece::CountSystem RhythmicPiece::count_system() const
+{
+    switch (beat.duration() / key()) {
+        case 1: return CountSystem::one;
+        case 2: return CountSystem::two;
+        case 3: return CountSystem::three;
+        case 4: return CountSystem::four;
+        case 6: return CountSystem::six;
+        default:
+            throw std::runtime_error(
+                "Cannot determine a valid count system for this piece");
+    }
+}
+
+std::vector<std::pair<bool, int>> RhythmicPiece::counts() const
+{
+    std::vector<std::pair<bool, int>> res;
+    auto key_ = key();
+    for (const auto& bar: bars) {
+    for (const auto& note: bar) {
+        int count = note.duration() / key_;
+        res.push_back(std::make_pair(!note.is_rest(), count));
+    }}
+    return res;
+}
+
 int RhythmicPiece::key() const
 {
     if (is_compound()) return compound_key();
