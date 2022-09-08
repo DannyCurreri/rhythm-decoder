@@ -41,13 +41,11 @@ string RhythmicPiece::write() const
         else
             res += " ";
 
-        for (int i = 0; i != 2 * count.second - 1; ++i) {
+        int spaces = (subcounts == three_count || subcounts == six_count) ? 3 : 2;
+        for (int i = 0; i != spaces * count.second - 1; ++i)
             res += " ";
-            if (subcounts == three_count || subcounts == six_count)
-                res += " ";
-        }
     }
-    res += "||\n";
+    res += "||";
 
     return res;
 }

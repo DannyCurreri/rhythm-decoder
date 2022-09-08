@@ -37,6 +37,24 @@ RhythmicPiece::RhythmicPiece(std::pair<int, Note> sig)
 
 void RhythmicPiece::append(Bar bar)
 {
+    // SPECIAL CASE: full measure whole note rest.
+    // A whole note rest can represent a full measure rest
+    // in different time signatures, so its duration is not
+    // necessarily equal to a whole note's usual duration.
+    // We can thank Bach for this complication.
+    if (bar.size() == 1
+            && bar[0].get_type() == Note::NoteType::whole
+            && bar[0].is_rest()) {
+        Bar full_measure_rest;
+        for (int i = 0; i != beats_per_measure; ++i) {
+            full_measure_rest.push_back(
+                {Note(beat.get_type(), is_compound(), true)});
+        }
+        bars.push_back(full_measure_rest);
+        return;
+    }
+
+    // General case: not a whole note rest
     int sum = 0;
     for (auto& note: bar)
         sum += note.duration();

@@ -26,6 +26,7 @@ public:
 
     bool is_dotted() const { return dotted_; }
     bool is_rest()   const { return rest_; }
+    NoteType get_type() const { return type; }
 private:
     NoteType type;
     bool dotted_;
