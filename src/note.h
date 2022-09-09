@@ -24,13 +24,13 @@ public:
     // that preserves the correct musical relationships between these notes.
     int duration() const;
 
-    bool is_dotted() const { return dotted_; }
-    bool is_rest()   const { return rest_; }
-    NoteType get_type() const { return type; }
+    bool dotted()   const  { return dotted_; }
+    bool rest()     const  { return rest_; }
+    NoteType type() const  { return type_; }
 private:
-    NoteType type;
-    bool dotted_;
-    bool rest_;
+    NoteType type_;
+    bool dotted_ {false};
+    bool rest_ {false};
 };
 
 #endif

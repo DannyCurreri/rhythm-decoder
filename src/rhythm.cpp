@@ -43,12 +43,12 @@ void RhythmicPiece::append(Bar bar)
     // necessarily equal to a whole note's usual duration.
     // We can thank Bach for this complication.
     if (bar.size() == 1
-            && bar[0].get_type() == Note::NoteType::whole
-            && bar[0].is_rest()) {
+            && bar[0].type() == Note::NoteType::whole
+            && bar[0].rest()) {
         Bar full_measure_rest;
         for (int i = 0; i != beats_per_measure; ++i) {
             full_measure_rest.push_back(
-                {Note(beat.get_type(), is_compound(), true)});
+                {Note(beat.type(), is_compound(), true)});
         }
         bars.push_back(full_measure_rest);
         return;
@@ -84,7 +84,7 @@ std::vector<std::pair<bool, int>> RhythmicPiece::counts() const
     for (const auto& bar: bars) {
     for (const auto& note: bar) {
         int count = note.duration() / key_;
-        res.push_back(std::make_pair(!note.is_rest(), count));
+        res.push_back(std::make_pair(!note.rest(), count));
     }}
     return res;
 }
@@ -108,7 +108,7 @@ int RhythmicPiece::compound_key() const
                 // duration evenly divides the beat but this should *not*
                 // be the key note.
                 // this is an unideal solution.
-                if (note.is_dotted())
+                if (note.dotted())
                     res = dur / 3;
                 else
                     res = dur;

@@ -27,7 +27,7 @@ TEST_CASE("Orff Signature from 2/4")
 {
     std::pair<int, Note> sig = orff_signature(2, 4);
     REQUIRE( sig.first == 2 );
-    REQUIRE( sig.second.type == Note::NoteType::quarter );
+    REQUIRE( sig.second.type() == Note::NoteType::quarter );
     REQUIRE( !sig.second.dotted_ );
 }
 
@@ -35,7 +35,7 @@ TEST_CASE("Orff Signature from 3/8")
 {
     std::pair<int, Note> sig = orff_signature(3, 8);
     REQUIRE( sig.first == 3 );
-    REQUIRE( sig.second.type == Note::NoteType::eighth );
+    REQUIRE( sig.second.type() == Note::NoteType::eighth );
     REQUIRE( !sig.second.dotted_ );
 }
 
@@ -48,7 +48,7 @@ TEST_CASE("Orff Signature from 15/8")
 {
     std::pair<int, Note> sig = orff_signature(15, 8);
     REQUIRE( sig.first == 5 );
-    REQUIRE( sig.second.type == Note::NoteType::quarter );
+    REQUIRE( sig.second.type() == Note::NoteType::quarter );
     REQUIRE( sig.second.dotted_ );
 }
 

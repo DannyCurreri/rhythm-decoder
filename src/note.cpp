@@ -6,25 +6,23 @@
    dotted notes and any desired tuplets, can be expressed as integers. */
 constexpr int BASE_DURATION = 6;
 
-Note::Note(NoteType n) :type{n}
+Note::Note(NoteType n) :type_{n}
 {
-    dotted_ = false;
-    rest_ = false;
 }
 
-Note::Note(NoteType n, bool d) :type{n}, dotted_{d}
+Note::Note(NoteType n, bool d) :type_{n}, dotted_{d}
 {
-    rest_ = false;
 }
 
 Note::Note(NoteType n, bool d, bool r)
-    :type{n}, dotted_{d}, rest_{r}
-{}
+    :type_{n}, dotted_{d}, rest_{r}
+{
+}
 
 int Note::duration() const
 {
     int res = BASE_DURATION;
-    switch (type) {
+    switch (type_) {
         case NoteType::whole:      res *= 32;  break;
         case NoteType::half:       res *= 16;  break;
         case NoteType::quarter:    res *=  8;  break;

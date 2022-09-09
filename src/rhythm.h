@@ -35,7 +35,7 @@ public:
     int key() const;
 
     // true if this piece has a compound meter e.g. 6/8
-    bool is_compound() const { return beat.is_dotted(); }
+    bool is_compound() const { return beat.dotted(); }
 
     // returns the CountSystem appropriate for this RhythmicPiece
     CountSystem count_system() const;
