@@ -13,7 +13,7 @@ std::pair<int, Note> orff_signature(int top, int bottom)
         switch (bottom) {
             case 2: note_type = Note::NoteType::half;    break;
             case 4: note_type = Note::NoteType::quarter; break;
-            case 8: note_type = Note::NoteType::eighth;   break;
+            case 8: note_type = Note::NoteType::eighth;  break;
             default:
                 throw(std::range_error("Unsupported time signature"));
         }

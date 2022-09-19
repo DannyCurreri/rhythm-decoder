@@ -42,6 +42,7 @@ public:
 
     // writes this RhythmicPiece's counts to a string
     std::string write() const;
+
 private:
     Note beat;    // note value of primary beat in this piece's time sig
     int beats_per_measure;

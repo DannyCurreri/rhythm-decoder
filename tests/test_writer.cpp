@@ -24,8 +24,8 @@ TEST_CASE("write piece in 4/4")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1 e + a 2 e + a 3 e + a 4 e + a ||\n";
-        EXPECTED += "X X       X     X           X   ||";
+        EXPECTED += "1 e + a 2 e + a 3 e + a 4 e + a||\n";
+        EXPECTED += "X X       X     X           X  ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -38,8 +38,8 @@ TEST_CASE("write piece in 4/4")
             Note(Note::NoteType::quarter, false, true),
         };
         rp.append(bar);
-        EXPECTED += "1 2 3 4 ||\n";
-        EXPECTED += "X   X   ||";
+        EXPECTED += "1 2 3 4||\n";
+        EXPECTED += "X   X  ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -51,8 +51,8 @@ TEST_CASE("write piece in 4/4")
             Note(Note::NoteType::quarter, false)
         };
         rp.append(bar);
-        EXPECTED += "1 + 2 + 3 + 4 + ||\n";
-        EXPECTED += "X     X     X   ||";
+        EXPECTED += "1 + 2 + 3 + 4 +||\n";
+        EXPECTED += "X     X     X  ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -69,8 +69,8 @@ TEST_CASE("write piece in 4/4")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1 + 2 + 3 + 4 + ||\n";
-        EXPECTED += "X X X X X X X X ||";
+        EXPECTED += "1 + 2 + 3 + 4 +||\n";
+        EXPECTED += "X X X X X X X X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -95,8 +95,8 @@ TEST_CASE( "write piece in 3/4" )
             Note(Note::NoteType::sixteenth, false)
         };
         rp.append(bar);
-        EXPECTED += "1 e + a 2 e + a 3 e + a ||\n";
-        EXPECTED += "X X   X   X   X   X   X ||";
+        EXPECTED += "1 e + a 2 e + a 3 e + a||\n";
+        EXPECTED += "X X   X   X   X   X   X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -113,8 +113,8 @@ TEST_CASE( "write piece in 2/2 time signature" )
             Note(Note::NoteType::half, false)
         };
         rp.append(bar);
-        EXPECTED += "1 2 ||\n";
-        EXPECTED += "  X ||";
+        EXPECTED += "1 2||\n";
+        EXPECTED += "  X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -127,8 +127,8 @@ TEST_CASE( "write piece in 2/2 time signature" )
             Note(Note::NoteType::quarter, false, true),
         };
         rp.append(bar);
-        EXPECTED += "1 + 2 + ||\n";
-        EXPECTED += "X   X   ||";
+        EXPECTED += "1 + 2 +||\n";
+        EXPECTED += "X   X  ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -141,8 +141,8 @@ TEST_CASE( "write piece in 2/2 time signature" )
             Note(Note::NoteType::quarter, true),
         };
         rp.append(bar);
-        EXPECTED += "1 e + a 2 e + a ||\n";
-        EXPECTED += "X     X X X     ||";
+        EXPECTED += "1 e + a 2 e + a||\n";
+        EXPECTED += "X     X X X    ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -155,8 +155,8 @@ TEST_CASE( "write piece in 2/2 time signature" )
             Note(Note::NoteType::quarter, false),
         };
         rp.append(bar);
-        EXPECTED += "1 + 2 + ||\n";
-        EXPECTED += "X X X X ||";
+        EXPECTED += "1 + 2 +||\n";
+        EXPECTED += "X X X X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -173,8 +173,8 @@ TEST_CASE( "write piece in 2/2 time signature" )
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1 e + a 2 e + a ||\n";
-        EXPECTED += "X X X X X X X X ||";
+        EXPECTED += "1 e + a 2 e + a||\n";
+        EXPECTED += "X X X X X X X X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -191,8 +191,8 @@ TEST_CASE("write piece in 6/8")
             Note(Note::NoteType::quarter, true),
         };
         rp.append(bar);
-        EXPECTED += "1 2 ||\n";
-        EXPECTED += "X X ||";
+        EXPECTED += "1 2||\n";
+        EXPECTED += "X X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -211,8 +211,8 @@ TEST_CASE("write piece in 6/8")
             Note(Note::NoteType::sixteenth, false),
         };
         rp.append(bar);
-        EXPECTED += "1  d  la d  li d  2  d  la d  li d  ||\n";
-        EXPECTED += "X        X  X  X  X  X  X  X  X  X  ||";
+        EXPECTED += "1~ d~ la d~ li d~ 2~ d~ la d~ li d~||\n";
+        EXPECTED += "X        X  X  X  X  X  X  X  X  X ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -225,8 +225,8 @@ TEST_CASE("write piece in 6/8")
             Note(Note::NoteType::eighth, true),
         };
         rp.append(bar);
-        EXPECTED += "1  d  la d  li d  2  d  la d  li d  ||\n";
-        EXPECTED += "X        X        X        X        ||";
+        EXPECTED += "1~ d~ la d~ li d~ 2~ d~ la d~ li d~||\n";
+        EXPECTED += "X        X        X        X       ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -240,8 +240,8 @@ TEST_CASE("write piece in 6/8")
             Note(Note::NoteType::quarter, false),
         };
         rp.append(bar);
-        EXPECTED += "1  la li 2  la li ||\n";
-        EXPECTED += "X     X  X  X     ||";
+        EXPECTED += "1~ la li 2~ la li||\n";
+        EXPECTED += "X     X  X  X    ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -264,8 +264,8 @@ TEST_CASE("write piece in 12/8")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1  la li 2  la li 3  la li 4  la li ||\n";
-        EXPECTED += "X                 X  X  X  X     X  ||";
+        EXPECTED += "1~ la li 2~ la li 3~ la li 4~ la li||\n";
+        EXPECTED += "X                 X  X  X  X     X ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -286,8 +286,8 @@ TEST_CASE("write piece in 12/8")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1  la li 2  la li 3  la li 4  la li ||\n";
-        EXPECTED += "X     X     X  X     X     X     X  ||";
+        EXPECTED += "1~ la li 2~ la li 3~ la li 4~ la li||\n";
+        EXPECTED += "X     X     X  X     X     X     X ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -305,8 +305,8 @@ TEST_CASE("write piece in 12/8")
             Note(Note::NoteType::eighth, false)
         };
         rp.append(bar);
-        EXPECTED += "1  la li 2  la li 3  la li 4  la li ||\n";
-        EXPECTED += "X     X     X  X     X     X     X  ||";
+        EXPECTED += "1~ la li 2~ la li 3~ la li 4~ la li||\n";
+        EXPECTED += "X     X     X  X     X     X     X ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -328,8 +328,8 @@ TEST_CASE("write piece in 12/8")
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1  d  la d  li d  2  d  la d  li d  3  d  la d  li d  4  d  la d  li d  ||\n";
-        EXPECTED += "X     X        X  X     X        X  X        X        X  X  X  X  X     ||";
+        EXPECTED += "1~ d~ la d~ li d~ 2~ d~ la d~ li d~ 3~ d~ la d~ li d~ 4~ d~ la d~ li d~||\n";
+        EXPECTED += "X     X        X  X     X        X  X        X        X  X  X  X  X    ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -348,8 +348,8 @@ TEST_CASE( "write piece in 2/4" )
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1 + 2 + ||\n";
-        EXPECTED += "X X X X ||";
+        EXPECTED += "1 + 2 +||\n";
+        EXPECTED += "X X X X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -362,8 +362,8 @@ TEST_CASE( "write piece in 2/4" )
             Note(Note::NoteType::eighth, true),
         };
         rp.append(bar);
-        EXPECTED += "1 e + a 2 e + a ||\n";
-        EXPECTED += "X     X X X     ||";
+        EXPECTED += "1 e + a 2 e + a||\n";
+        EXPECTED += "X     X X X    ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -393,8 +393,8 @@ TEST_CASE( "write piece in 5/4" )
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1 e + a 2 e + a 3 e + a 4 e + a 5 e + a ||\n";
-        EXPECTED += "X   X X X X X     X X     X   X   X X   ||";
+        EXPECTED += "1 e + a 2 e + a 3 e + a 4 e + a 5 e + a||\n";
+        EXPECTED += "X   X X X X X     X X     X   X   X X  ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -423,8 +423,8 @@ TEST_CASE( "write piece in 15/8" )
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1  d  la d  li d  2  d  la d  li d  3  d  la d  li d  4  d  la d  li d  5  d  la d  li d  ||\n";
-        EXPECTED += "X  X  X  X     X  X                                   X  X  X        X  X     X     X     ||";
+        EXPECTED += "1~ d~ la d~ li d~ 2~ d~ la d~ li d~ 3~ d~ la d~ li d~ 4~ d~ la d~ li d~ 5~ d~ la d~ li d~||\n";
+        EXPECTED += "X  X  X  X     X  X                                   X  X  X        X  X     X     X    ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -447,8 +447,8 @@ TEST_CASE( "write piece in 9/8" )
             Note(Note::NoteType::eighth, false),
         };
         rp.append(bar);
-        EXPECTED += "1  la li 2  la li 3  la li ||\n";
-        EXPECTED += "X              X     X  X  ||";
+        EXPECTED += "1~ la li 2~ la li 3~ la li||\n";
+        EXPECTED += "X              X     X  X ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -459,8 +459,8 @@ TEST_CASE( "write piece in 9/8" )
             Note(Note::NoteType::quarter, true),
         };
         rp.append(bar);
-        EXPECTED += "1 2 3 ||\n";
-        EXPECTED += "X   X ||";
+        EXPECTED += "1 2 3||\n";
+        EXPECTED += "X   X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }
@@ -476,8 +476,8 @@ TEST_CASE( "write piece in 3/2" )
             Note(Note::NoteType::whole, false, true),
         };
         rp.append(bar);
-        EXPECTED += "1 2 3 ||\n";
-        EXPECTED += "      ||";
+        EXPECTED += "1 2 3||\n";
+        EXPECTED += "     ||";
         REQUIRE( rp.write() == EXPECTED );
     }
 
@@ -495,8 +495,8 @@ TEST_CASE( "write piece in 3/2" )
             Note(Note::NoteType::eighth),
         };
         rp.append(bar);
-        EXPECTED += "1 e + a 2 e + a 3 e + a ||\n";
-        EXPECTED += "X X   X X X   X X X   X ||";
+        EXPECTED += "1 e + a 2 e + a 3 e + a||\n";
+        EXPECTED += "X X   X X X   X X X   X||";
         REQUIRE( rp.write() == EXPECTED );
     }
 }

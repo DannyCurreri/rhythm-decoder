@@ -6,3 +6,9 @@ add_library(Rhythm
 target_include_directories(Rhythm
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
     )
+
+add_executable(rd
+               note.cpp
+               main.cpp
+               rhythm.cpp
+               rhythm_io_facilities.cpp)
