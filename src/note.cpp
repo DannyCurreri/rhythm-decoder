@@ -29,9 +29,7 @@ int Note::duration() const
         case NoteType::eighth:     res *=  4;  break;
         case NoteType::sixteenth:  res *=  2;  break;
     }
-    if (dotted_) {
-        res /= 2;
-        res *= 3;
-    }
+    if (dotted_) res = res / 2 * 3;
+
     return res;
 }

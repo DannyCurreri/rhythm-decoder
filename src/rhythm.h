@@ -4,12 +4,26 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include <exception>
 
 /* Converts a time signature <top>/<bottom> to an Orff signature.
  The Orff signature is expressed as a std::pair, where the first
  member is beats per measure and the second is note value of the beat. */
 std::pair<int, Note> orff_signature(int top, int bottom);
 
+class unsupported_timesig : public std::exception {
+public:
+    const char* what() {
+        return "Unsupported time signature ";
+    }
+};
+
+class invalid_bar : public std::exception {
+public:
+    const char* what() {
+        return "Not a valid bar for this time signature ";
+    }
+};
 
 class RhythmicPiece {
 public:

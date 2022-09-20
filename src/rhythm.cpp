@@ -15,7 +15,7 @@ std::pair<int, Note> orff_signature(int top, int bottom)
             case 4: note_type = Note::NoteType::quarter; break;
             case 8: note_type = Note::NoteType::eighth;  break;
             default:
-                throw(std::range_error("Unsupported time signature"));
+                throw unsupported_timesig();
         }
     } else { // compound meter
         beats_per_measure = top / 3;
@@ -23,7 +23,7 @@ std::pair<int, Note> orff_signature(int top, int bottom)
         switch (bottom) {
             case 8: note_type = Note::NoteType::quarter; break;
             default:
-                throw(std::range_error("Unsupported time signature"));
+                throw unsupported_timesig();
         }
     }
 
@@ -59,7 +59,7 @@ void RhythmicPiece::append(Bar bar)
     for (auto& note: bar)
         sum += note.duration();
     if (sum != beat.duration() * beats_per_measure)
-        throw(std::runtime_error("not a valid bar"));
+        throw invalid_bar();
     bars.push_back(bar);
 }
 

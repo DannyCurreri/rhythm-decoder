@@ -1,3 +1,4 @@
+#include "rhythm_io_facilities.h"
 #include "rhythm.h"
 #include "note.h"
 #include <string>
@@ -58,7 +59,7 @@ string RhythmicPiece::write() const
 }
 
 std::pair<int, int> parse_time_sig(string time_sig)
-{
+try {
     string s1 {};
     string s2 {};
     int index {};
@@ -76,6 +77,9 @@ std::pair<int, int> parse_time_sig(string time_sig)
     int bottom = std::stoi(s2);
 
     return std::make_pair(top, bottom);
+}
+catch (...) {
+    throw parse_timesig_err();
 }
 
 Note parse_note(std::string_view note) {
@@ -103,5 +107,5 @@ Note parse_note(std::string_view note) {
     if (note == "re.") return Note(Note::NoteType::eighth, true, true);
     if (note == "rs.") return Note(Note::NoteType::sixteenth, true, true);
 
-    throw std::runtime_error("invalid token");
+    throw bad_token(note);
 }
